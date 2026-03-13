@@ -11,14 +11,43 @@ Draft a follow-up email for any account. Usage: `/email-drafter [Account Name] [
 
 When invoked with an account name and context:
 
-### Step 1: Read Account Context
+### Step 1: Learn the Seller's Writing Style (if productivity tools configured)
 
-Find and read the account folder (`Accounts/[Account Name]/`):
-- `Engagement-Log.md` — read the most recent 2-3 entries for what was just discussed
-- `Open-Items.md` — what we promised, what they owe us
-- `Account-Overview.md` — stakeholder names, deal context
+Before drafting, pull a sample of the seller's own sent emails to learn their personal style. This is what makes the draft feel like *them*, not a template.
 
-### Step 2: Understand What's Needed
+**WorkIQ / Microsoft 365**: Ask WorkIQ for "my last 10 sent emails to prospects or customers"
+**Google Workspace**: Fetch the last 10 sent emails from Gmail to external recipients
+**If neither is configured**: skip style learning and use the default drafting principles below
+
+From the sent emails, extract:
+
+| Style dimension | What to observe |
+|----------------|----------------|
+| **Length** | How many sentences typical? Short and punchy, or more detailed? |
+| **Greeting** | "Hi [First name]," / "Hey [Name]," / "[Name]," / "Hi there," |
+| **Tone** | Formal / conversational / warm / direct |
+| **Structure** | Prose vs. bullets; does the seller use numbered lists? |
+| **Sign-off** | "Best," / "Thanks," / "Talk soon," / "Cheers," |
+| **CTA style** | Direct ask ("Can you...?") vs. soft offer ("Happy to...") |
+| **Opener style** | Straight to point vs. brief personal note |
+| **Typical email length** | Avg sentence count |
+
+Apply the inferred style throughout the draft. If you can't confidently infer a dimension, use the default principles below.
+
+### Step 2: Read Account Context
+
+**From CRM** (if configured): Fetch the most recent tasks/events for this opportunity to understand what was just discussed.
+
+**From productivity tools** (if configured): Ask WorkIQ or search Gmail for the most recent email thread with this account — this often has richer context than CRM activity logs.
+
+**From local notes** (if present): Read `Accounts/[Account Name]/`:
+- `Engagement-Log.md` — recent call notes
+- `Open-Items.md` — what was promised, what they owe us
+- `Account-Overview.md` — stakeholder names
+
+Combine all sources. The goal is to understand: what just happened, what was promised, and what does this email need to accomplish.
+
+### Step 4: Understand What's Needed
 
 Parse the context the rep provided to understand the purpose of the email. Common types:
 - **Follow-up after a call**: Recap, next steps, promised materials
@@ -27,7 +56,7 @@ Parse the context the rep provided to understand the purpose of the email. Commo
 - **Re-engage a stalled deal**: Check in after silence
 - **Nurture**: Share relevant content, maintain relationship
 
-### Step 3: Draft the Email
+### Step 5: Draft the Email
 
 Apply these principles:
 - **Short**: 3-5 sentences for transactional emails; 5-8 for substantive follow-ups

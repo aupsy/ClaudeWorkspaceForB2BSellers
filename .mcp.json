@@ -1,5 +1,6 @@
 {
   "mcpServers": {
+
     "salesforce": {
       "command": "uvx",
       "args": ["mcp-server-salesforce"],
@@ -9,6 +10,34 @@
         "SALESFORCE_SECURITY_TOKEN": "${SALESFORCE_SECURITY_TOKEN}",
         "SALESFORCE_INSTANCE_URL": "${SALESFORCE_INSTANCE_URL}"
       }
+    },
+
+    "workiq": {
+      "command": "npx",
+      "args": ["-y", "@workiq/mcp-server"],
+      "env": {
+        "WORKIQ_API_KEY": "${WORKIQ_API_KEY}"
+      }
+    },
+
+    "slack": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-slack"],
+      "env": {
+        "SLACK_BOT_TOKEN": "${SLACK_BOT_TOKEN}",
+        "SLACK_TEAM_ID": "${SLACK_TEAM_ID}"
+      }
+    },
+
+    "google-workspace": {
+      "command": "uvx",
+      "args": ["mcp-server-google-workspace"],
+      "env": {
+        "GOOGLE_CLIENT_ID": "${GOOGLE_CLIENT_ID}",
+        "GOOGLE_CLIENT_SECRET": "${GOOGLE_CLIENT_SECRET}",
+        "GOOGLE_REFRESH_TOKEN": "${GOOGLE_REFRESH_TOKEN}"
+      }
     }
+
   }
 }

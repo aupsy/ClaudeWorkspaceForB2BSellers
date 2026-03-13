@@ -41,7 +41,21 @@ Look for `Accounts/[Account Name]/` in the repo. If found, read:
 
 Local notes supplement CRM data — they capture what sellers know but don't put in the CRM.
 
-**If neither CRM nor local notes are available**, ask the rep to describe the deal before scoring.
+**Also query productivity tools (if configured):**
+
+Use whichever are available — WorkIQ/M365, Google Workspace, or Slack:
+- "Show me all emails and meetings with [account name] in the last 60 days"
+- "How frequently have I been in contact with [account name] recently?"
+- "Any communications with executive-level contacts at [account name]?"
+
+Extract these signals for MEDDIC scoring:
+- **Email/meeting frequency**: High = engaged; dropping off = risk signal
+- **Who's on the emails**: Champion only = no EB access; execs included = strong sign
+- **Tone trend**: Emails getting shorter and slower? Enthusiasm fading? = yellow flag
+- **Topics discussed**: Metrics, ROI, procurement, legal = late-stage progress signals
+- **Silence gaps**: If no comms in 3+ weeks despite active stage = red flag
+
+**If neither CRM, local notes, nor productivity tools are available**, ask the rep to describe the deal before scoring.
 
 ### Step 2: Score Each MEDDIC Dimension
 
@@ -102,6 +116,18 @@ For each dimension, rate: **Strong (Green)** / **Partial (Yellow)** / **Missing 
 | C — Champion | 🟢/🟡/🔴 | [What we know] | [What's missing] |
 
 **MEDDIC score**: [X/6 dimensions Green]
+
+### Communication Patterns *(from productivity tools — omit if not configured)*
+
+| Signal | Status | Detail |
+|--------|--------|--------|
+| Contact frequency (last 30 days) | [Active / Slowing / Silent] | [# emails, # meetings] |
+| Most recent outreach | [Date] | [Who initiated — us or them] |
+| Seniority of contacts engaged | [Exec level / Mid-level / Practitioner only] | [Names/titles seen in emails] |
+| Tone trend | [Positive / Neutral / Cooling] | [Evidence] |
+| CRM logging gap | [Up to date / Behind] | [Events in email not yet in CRM] |
+
+**Communication health**: [🟢 Strong / 🟡 Slowing — act now / 🔴 Gone dark]
 
 ### Key Risks
 

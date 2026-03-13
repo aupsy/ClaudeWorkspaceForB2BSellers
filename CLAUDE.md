@@ -106,15 +106,15 @@ This file loads automatically every session. It defines who we are, what success
 
 **Your CRM is the system of record for deals.** This workspace does not sync or store CRM data — it queries your CRM live via MCP so your org's sharing rules and RBAC are always respected. Each seller connects with their own credentials and only sees what they have access to in the CRM.
 
-| What lives here (git) | What lives in your CRM | What stays local only |
-|----------------------|----------------------|----------------------|
-| Shared knowledge (product, compete, plays) | Opportunities, contacts, activities | Account qualitative notes (`Accounts/`) |
-| Skills and automation | Pipeline and forecast data | Generated pipeline reports |
-| Win/loss retrospectives | Deal history | |
+| What lives here (git) | What lives in your CRM | Queried live (productivity tools) | What stays local only |
+|----------------------|----------------------|----------------------------------|----------------------|
+| Shared knowledge (product, compete, plays) | Opportunities, contacts, activities | Recent emails + meetings (not in CRM) | Account qualitative notes (`Accounts/`) |
+| Skills and automation | Pipeline and forecast data | Calendar events and upcoming calls | Generated pipeline reports |
+| Win/loss retrospectives | Deal history | Slack threads mentioning an account | |
 
-**`Accounts/` folders are for qualitative context that doesn't belong in your CRM** — political dynamics, relationship nuance, stakeholder motivations. They are gitignored and never shared. Skills use CRM data as the primary source and supplement with local notes when present.
+**`Accounts/` folders are for qualitative context that doesn't belong in your CRM** — political dynamics, relationship nuance, stakeholder motivations. They are gitignored and never shared. Skills use CRM data as the primary source, supplement with productivity tool context (email/calendar/Slack), and layer in local notes when present.
 
-See `SALESFORCE-SETUP.md` (or the relevant section for your CRM) to connect your CRM.
+See `SALESFORCE-SETUP.md` to connect your CRM and optionally configure WorkIQ/M365, Google Workspace, or Slack.
 
 ---
 

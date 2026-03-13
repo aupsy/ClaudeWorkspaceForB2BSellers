@@ -222,6 +222,169 @@ Run multiple times for different folders. Each run adds to (not overwrites) what
 
 ---
 
+## Productivity Tools Setup (Optional)
+
+Connect one or more productivity tools to enrich call prep, deal health, and email drafting with context from your recent emails, meetings, and messages. Skills use whichever tools are configured and skip the rest — none are required.
+
+---
+
+### WorkIQ / Microsoft 365 (~5 minutes)
+
+Best for: teams on Microsoft 365 (Outlook, Teams, Calendar).
+
+Enables: recent email threads by account, meeting notes, calendar events, seller email style learning for `/email-drafter`.
+
+#### Step 1 — Get your WorkIQ API key
+
+1. Go to [workiq.com](https://workiq.com) and sign in with your Microsoft 365 account
+2. Navigate to **Settings** → **API** → **Generate API Key**
+3. Copy the key
+
+> If your organization hasn't set up WorkIQ, ask your IT admin or use a personal trial at workiq.com. Alternatively, configure Google Workspace or Slack below.
+
+#### Step 2 — Add to `.env`
+
+```
+WORKIQ_API_KEY=your_workiq_api_key
+```
+
+#### Step 3 — Uncomment in `.mcp.json`
+
+The `workiq` MCP server block is already in `.mcp.json` but disabled (commented out). Remove the comments to activate it:
+
+```json
+"workiq": {
+  "command": "npx",
+  "args": ["-y", "@workiq/mcp-server"],
+  "env": {
+    "WORKIQ_API_KEY": "${WORKIQ_API_KEY}"
+  }
+}
+```
+
+#### Verify
+
+Ask Claude: `"What emails have I sent to contacts at Acme Corp in the last 30 days?"` — you should see real results from your Outlook.
+
+---
+
+### Slack (~5 minutes)
+
+Best for: teams that coordinate deals and account context via Slack channels.
+
+Enables: search Slack threads mentioning an account, surface context not in CRM.
+
+#### Step 1 — Create a Slack Bot
+
+1. Go to [api.slack.com/apps](https://api.slack.com/apps) → **Create New App** → **From scratch**
+2. Name it "Claude Sales Assistant" and select your workspace
+3. Under **OAuth & Permissions** → **Bot Token Scopes**, add:
+   - `channels:history` — read public channel messages
+   - `channels:read` — list channels
+   - `groups:history` — read private channels the bot is in
+   - `search:read` — search messages
+4. Click **Install to Workspace** → copy the **Bot User OAuth Token** (starts with `xoxb-`)
+5. Your **Team ID** is in your Slack workspace URL: `https://app.slack.com/client/T0123456789/...` — it's the `T...` part
+
+#### Step 2 — Invite the bot to relevant channels
+
+In each Slack channel with deal/account discussions: `/invite @Claude Sales Assistant`
+
+#### Step 3 — Add to `.env`
+
+```
+SLACK_BOT_TOKEN=xoxb-your-bot-token
+SLACK_TEAM_ID=T0123456789
+```
+
+#### Step 4 — Uncomment in `.mcp.json`
+
+```json
+"slack": {
+  "command": "npx",
+  "args": ["-y", "@modelcontextprotocol/server-slack"],
+  "env": {
+    "SLACK_BOT_TOKEN": "${SLACK_BOT_TOKEN}",
+    "SLACK_TEAM_ID": "${SLACK_TEAM_ID}"
+  }
+}
+```
+
+#### Verify
+
+Ask Claude: `"Search Slack for recent messages mentioning Acme Corp"` — you should see threads from channels the bot was invited to.
+
+---
+
+### Google Workspace (Gmail + Calendar) (~15 minutes)
+
+Best for: teams using Google Workspace (Gmail, Google Calendar).
+
+Enables: recent email threads by account, calendar events, seller email style learning for `/email-drafter`.
+
+#### Step 1 — Create a Google OAuth app
+
+1. Go to [console.cloud.google.com](https://console.cloud.google.com) → **APIs & Services** → **Credentials**
+2. Click **Create Credentials** → **OAuth client ID**
+3. Application type: **Desktop app** → name it "Claude Sales Workspace"
+4. Download the JSON file — you'll need the `client_id` and `client_secret`
+
+#### Step 2 — Enable required APIs
+
+In **APIs & Services** → **Library**, enable:
+- **Gmail API**
+- **Google Calendar API**
+- **People API** (for contact names)
+
+#### Step 3 — Get a refresh token
+
+Run this once to authorize and get a long-lived refresh token:
+
+```bash
+# Install the Google auth helper
+pip install google-auth-oauthlib
+
+# Run the authorization flow (opens a browser)
+python3 -c "
+from google_auth_oauthlib.flow import InstalledAppFlow
+flow = InstalledAppFlow.from_client_secrets_file('client_secret.json',
+  scopes=['https://www.googleapis.com/auth/gmail.readonly',
+          'https://www.googleapis.com/auth/calendar.readonly'])
+creds = flow.run_local_server(port=0)
+print('Refresh token:', creds.refresh_token)
+"
+```
+
+Copy the refresh token printed at the end.
+
+#### Step 4 — Add to `.env`
+
+```
+GOOGLE_CLIENT_ID=your_client_id.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=your_client_secret
+GOOGLE_REFRESH_TOKEN=your_refresh_token
+```
+
+#### Step 5 — Uncomment in `.mcp.json`
+
+```json
+"google-workspace": {
+  "command": "uvx",
+  "args": ["mcp-server-google-workspace"],
+  "env": {
+    "GOOGLE_CLIENT_ID": "${GOOGLE_CLIENT_ID}",
+    "GOOGLE_CLIENT_SECRET": "${GOOGLE_CLIENT_SECRET}",
+    "GOOGLE_REFRESH_TOKEN": "${GOOGLE_REFRESH_TOKEN}"
+  }
+}
+```
+
+#### Verify
+
+Ask Claude: `"Show me recent emails to or from contacts at Acme Corp"` — you should see Gmail results.
+
+---
+
 ## Troubleshooting
 
 **"Authentication failed" (Salesforce)**
